@@ -2,19 +2,20 @@ const User = require('../models/User');
 const Guild = require('../models/Guild');
 
 const cooldown = new Map(); // userId -> timestamp
-const COOLDOWN_TIME = 3 * 1000; // 3 segundos
+const COOLDOWN_TIME = 60 * 1000; // 60 segundos
 
 setInterval(() => {
     cooldown.clear();
 }, 60 * 60 * 1000); // limpia cada hora
 
 function xpToLevel(level) {
-    return 30 * level ** 2 + (level * 50); 
+    return 40 * level ** 2 + (level * 50); 
 }
 
 // Esta es la función que va a manejar XP y niveles
 async function levelingFunction(message, client) {
     if (message.author.bot) return;
+    if (message.content.length < 5 ) return; 
 
     const now = Date.now();
     const userCooldown = cooldown.get(message.author.id);
@@ -40,7 +41,7 @@ async function levelingFunction(message, client) {
     }
 
     // Xp "random"
-    const xpGain = Math.floor(Math.random() * 11) + 15; // 15-25
+    const xpGain = Math.floor(Math.random() * 10) + 10; // 10-20
     user.xp += xpGain;
 
     const requiredXP = xpToLevel(user.level);
