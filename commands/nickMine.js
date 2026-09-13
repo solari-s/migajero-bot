@@ -1,7 +1,7 @@
 const User = require('../models/User');
 
 module.exports = {
-  name: "nick",
+  name: "nickMine",
   async execute(message, args) {
 
     const allowedChannelId = "1429879045566496931";
